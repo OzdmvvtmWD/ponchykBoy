@@ -8,6 +8,6 @@ class OrderSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Order
-        fields = ['email','phone_number','name','surname','order_date','is_paid','user']
+        fields = ['shop','email','phone_number','name','surname','order_date','is_paid','user']
 
     

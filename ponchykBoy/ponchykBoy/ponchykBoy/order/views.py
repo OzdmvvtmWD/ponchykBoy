@@ -45,12 +45,10 @@ class OrderViewSet(viewsets.ModelViewSet):
                 )
 
             cart.clear()
-            order_created.delay(order_id=order.id)
+            ord_mail = order_created.delay(order_id=order.id)
+            print(ord_mail.ready())
 
             return Response({'message':'Order succesfully created'}, status=status.HTTP_201_CREATED)
 
         return Response(order_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-    # def list(self, request, *args, **kwargs):
-    #     pass
-

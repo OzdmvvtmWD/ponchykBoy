@@ -1,26 +1,39 @@
-import time
-from django.core.mail import EmailMessage
-from django.core.mail import send_mail
+from django.core import mail
+from django.template.loader import render_to_string
+
 from celery import shared_task
 from .models import Order
 
 
-@shared_task
-def order_created(order_id):
-    time.sleep(50)
-    order = Order.objects.get(id=order_id)
-    subject = 'Order nr. {}'.format(order_id)
-    message = 'Dear {},\n\nYou have successfully placed an order.\
-                Your order id is {}.'.format(order.name,
-                                             order.id)
-    email = EmailMessage(
-        subject,
-        message,
-        "from@example.com",
-        [order.email],
-        ["bcc@example.com"],
-        # reply_to=["another@example.com"],
-        headers={"Message-ID": "foo"},
-    )
+@shared_task(bind=True)
+def order_created(self, order_id):
+    try:
+        order = Order.objects.get(id=order_id)
 
-    return email
+        text_content = render_to_string(
+            "email/text_email.txt",
+            context={
+                "customer_name" : order.name + " " + order.surname,
+                "order_number" : order.pk,
+                "order_date" : order.created,
+                "total_amount": order.get_total_cost()
+            },
+      
+)
+       
+        subject = f"Order №{order.pk} "
+
+
+        with mail.get_connection() as connection:
+            mail.EmailMessage(
+                subject=subject,
+                body=text_content,
+                from_email="from@example.com",
+                to=[order.email],
+                bcc=["bcc@example.com"],
+                headers={"Message-ID": "foo"},
+                connection=connection,
+            ).send()
+
+    except Exception as e:
+        raise self.retry(exc=e, countdown=5)

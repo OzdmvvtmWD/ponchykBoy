@@ -1,5 +1,4 @@
 from django.db import models
-# from django.contrib.gis.db import models as addictional_model_fields
 
 from app.models import Product
 from users.models import CustomUser
@@ -7,7 +6,6 @@ from users.models import CustomUser
 
 class ShopFilial(models.Model):
     adress = models.CharField(max_length=255)
-    # loacation = addictional_model_fields.PointField()
 
 class Order(models.Model):
 
@@ -25,7 +23,7 @@ class Order(models.Model):
 
     is_paid = models.BooleanField(default=False)
 
-    user = models.ForeignKey(CustomUser,related_name='items',on_delete=models.PROTECT,null=True)
+    user = models.ForeignKey(CustomUser,related_name='orders',on_delete=models.PROTECT,null=True)
 
     def get_total_cost(self):
         return sum(item.get_cost() for item in self.items.all())

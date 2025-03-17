@@ -1,3 +1,4 @@
+import json
 import phonenumbers  
 from django.utils.deconstruct import deconstructible
 
@@ -7,28 +8,25 @@ from django.core.exceptions import ValidationError
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import AbstractBaseUser,PermissionsMixin,BaseUserManager
 
-
-# @deconstructible
-# class PhoneValidator:
-
+# def phone_validator(region,number):
 #     message = ("Enter a valid phone number.")
 #     code = "invalid"
 
-#     def __call__(self, value):
-#         print(value)
-#         try:
-#             z = phonenumbers.parse(value, 'UA')
-        
-#         except phonenumbers.phonenumberutil.NumberParseException as e:
-#             raise ValidationError(self.message, code=self.code, params={"value": value})
+#     try:
+#         z = phonenumbers.parse(number, region)
+                
+#     except phonenumbers.phonenumberutil.NumberParseException as e:
+#         raise ValidationError(message, code=code, params={"value": {"region":region,"number":number}})
 
-#         # if not phonenumbers.is_valid_number(z):
-#         #     raise ValidationError(self.message, code=self.code, params={"value": value})
-
-
+#     if not phonenumbers.is_valid_number(z) or not phonenumbers.is_possible_number(z):
+#         raise ValidationError(message, code=code, params={"value": {"region":region,"number":number}})
+    
+#     return phonenumbers.format_number(z, phonenumbers.PhoneNumberFormat.E164)
+    
+    
+    
 
 class CustomUserManager(BaseUserManager):
-    # use_in_migrations = True
 
     def _create_user(self, username, email, phone_number, password, **extra_fields):
 
@@ -38,18 +36,16 @@ class CustomUserManager(BaseUserManager):
         if not email:
             raise ValueError("The given email must be set")
         
-
         if not phone_number:
             raise ValueError("The given phone_number must be set")
-
-        # z = phonenumbers.parse(phone_number, None)
-
-        # if not phonenumbers.is_valid_number(z):
-        #     return JsonResponse({"error": "The given phone_number is not valid"}, status=400)
-
-        # return JsonResponse({"error": "The given phone_number is not valid"}, status=400)
-
         
+
+        # region = str(phone_number.get('region')).upper()
+        # number = str(phone_number.get('number'))
+
+        # phone_number = phone_validator(region,number)
+         
+
         user = self.model(
             username = username, 
             email = self.normalize_email(email),
@@ -64,6 +60,7 @@ class CustomUserManager(BaseUserManager):
    
 
     def create_user(self, username, email, phone_number, password=None, **extra_fields):
+       
         user = self._create_user(username, email, phone_number, password, **extra_fields)
         user.save(using=self._db)
 
@@ -81,29 +78,26 @@ class CustomUserManager(BaseUserManager):
 
         return user
 
-    
-
 class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     email = models.EmailField(unique=True,max_length=100,error_messages={
             "unique": ("A user with that email already exists."),
         },)
-    phone_number = models.CharField(max_length=20,unique=True,validators=[])
+    
+    phone_number = models.CharField(max_length=255)
 
     username = models.CharField(max_length=255)
-    city = models.CharField(max_length=255)
 
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_admin = models.BooleanField(default=False)
-    # is_super_user = models.BooleanField(default=True) 
     is_superuser = models.BooleanField(default=False) 
 
     profile_img = models.ImageField(blank=True,null=True,upload_to='image')
 
     objects = CustomUserManager()
 
-    # EMAIL_FIELD = 
+    # EMAIL_FIELD = 'email'
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ["username","phone_number","city"]
+    REQUIRED_FIELDS = ["username","phone_number"]
 

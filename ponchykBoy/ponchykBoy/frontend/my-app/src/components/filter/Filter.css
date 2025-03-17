@@ -1,0 +1,47 @@
+.filter-bg {
+    background-color: wheat;
+    width: 300px;
+    max-width: 100%;
+    height: auto;
+    max-height: 500px;
+    position: fixed;
+    top: 120px;
+    left: 24px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+  }
+  
+  .filter-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .category-dropdown {
+    width: 100%;
+  }
+  
+  .range-container {
+    margin-top: 20px;
+  }
+  
+  .form-label {
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  
+  input.form-control {
+    border-radius: 8px;
+  }
+  
+  .input-group-text {
+    background-color: #007bff;
+    color: white;
+    border-radius: 8px;
+  }
+  
+  .input-group-text:hover {
+    background-color: #0056b3;
+  }
+  

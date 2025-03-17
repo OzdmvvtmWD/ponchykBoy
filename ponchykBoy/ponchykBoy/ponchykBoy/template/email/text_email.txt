@@ -1,0 +1,17 @@
+Dear {{ customer_name }},
+
+Thank you for your order! We are pleased to confirm that your order has been successfully received.
+
+Order Details:
+Order Number: {{ order_number }}
+Order Date: {{ order_date }}
+Total Amount: ${{ total_amount }}
+
+Your order is now being processed, and you will receive another email once it has been shipped.
+
+If you have any questions or need assistance, feel free to contact us at support@example.com.
+
+Thank you for choosing Your Company Name!
+
+Best regards,
+Your Company Name

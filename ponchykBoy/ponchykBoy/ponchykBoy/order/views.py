@@ -1,5 +1,7 @@
+from django.forms import ValidationError
 from django.shortcuts import render
 # from rest_framework.permissions import IsAuthenticated
+import phonenumbers
 from rest_framework import viewsets,status
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
@@ -11,6 +13,22 @@ from .permission import IsOwnerOrReadOnly
 from .celery_tasks import order_created
 from cart.cart import Cart
 
+
+
+def phone_validator(region,number):
+    message = ("Enter a valid phone number.")
+    code = "invalid"
+
+    try:
+        z = phonenumbers.parse(number, region)
+                
+    except phonenumbers.phonenumberutil.NumberParseException as e:
+        raise ValidationError(message, code=code, params={"value": {"region":region,"number":number}})
+
+    if not phonenumbers.is_valid_number(z) or not phonenumbers.is_possible_number(z):
+        raise ValidationError(message, code=code, params={"value": {"region":region,"number":number}})
+    
+    return phonenumbers.format_number(z, phonenumbers.PhoneNumberFormat.E164)
 
 
 class OrderViewSet(viewsets.ModelViewSet):
@@ -45,8 +63,7 @@ class OrderViewSet(viewsets.ModelViewSet):
                 )
 
             cart.clear()
-            ord_mail = order_created.delay(order_id=order.id)
-            print(ord_mail.ready())
+            order_created.delay(order_id = order.id)
 
             return Response({'message':'Order succesfully created'}, status=status.HTTP_201_CREATED)
 

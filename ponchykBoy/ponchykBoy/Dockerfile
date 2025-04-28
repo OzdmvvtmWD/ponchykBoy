@@ -19,4 +19,3 @@ RUN pip install -r /temp/requirements.txt
 RUN adduser --disabled-password ghoul
 
 USER ghoul
-# CMD python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000

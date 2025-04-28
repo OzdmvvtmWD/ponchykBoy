@@ -28,10 +28,10 @@ def order_created(self, order_id):
             mail.EmailMessage(
                 subject=subject,
                 body=text_content,
-                from_email="from@example.com",
+                from_email="ia.02guzbo@gmail.com",
                 to=[order.email],
-                bcc=["bcc@example.com"],
-                headers={"Message-ID": "foo"},
+                bcc=["ia.02guzbo@gmail.com"],
+                headers={"Message-ID": "order"},
                 connection=connection,
             ).send()
 

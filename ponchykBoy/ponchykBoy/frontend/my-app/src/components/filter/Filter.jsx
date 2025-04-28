@@ -1,89 +1,98 @@
-import React, { useState } from 'react';
-import Dropdown from 'react-bootstrap/Dropdown';
+import React, { useState, useEffect } from 'react';
 import Form from 'react-bootstrap/Form';
-import Badge from 'react-bootstrap/Badge';
-import InputGroup from 'react-bootstrap/InputGroup';
-import './Filter.css'
-function Filter(){
-    const [filterItem,setFilterItem] = useState('all')
+import ListGroup from 'react-bootstrap/ListGroup';
 
-    const uniqueCategories = () => {
-        let arr = Array.from(new Set(props.iteminfo.map(item => item.category)));
-        arr.unshift('all'); 
-        return arr;
-    };
+import './Filter.css';
 
-    const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
-      <a
-        href=""
-        ref={ref}
-        onClick={(e) => {
-          e.preventDefault();
-          onClick(e);
-        }}
-      >
-        {children}
-        &#x25bc;
-      </a>
-    ));
-    
-    const CustomMenu = React.forwardRef(
-      ({ children, style, className, 'aria-labelledby': labeledBy }, ref) => {
-        const [value, setValue] = useState('');
-    
-        return (
-          <div
-            ref={ref}
-            style={style}
-            className={className}
-            aria-labelledby={labeledBy}
-          >
-            <Form.Control
-              autoFocus
-              className="mx-3 my-2 w-auto"
-              placeholder="Type to filter..."
-              onChange={(e) => setValue(e.target.value)}
-              value={value}
-            />
-            <ul className="list-unstyled">
-              {React.Children.toArray(children).filter(
-                (child) =>
-                  !value || child.props.children.toLowerCase().startsWith(value),
-              )}
-            </ul>
-          </div>
-        );
+function Filter({ iteminfo }) {
+  const [filterItem, setFilterItem] = useState('All');
+  const [categories, setCategories] = useState([]);
+  const [products, setProducts] = useState([]);
+
+  const getProducts = (categoryName) => {
+    let url = 'http://127.0.0.1:8000/products/'; // базовий URL
+
+    if (categoryName !== 'All') {
+      url = `http://127.0.0.1:8000/product/category-products/?category=${categoryName}`;
+    }
+
+    fetch(url, {
+      headers: {
+        'Content-Type': 'application/json',
       },
-    );
+    })
+      .then(response => response.json())
+      .then((data) => {
+        setProducts(data);
+      })
+      .catch((error) => {
+        console.error('Error fetching products: ', error);
+      });
+  };
 
-    return(
-        <div className='filter-bg'>
-          <Form>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1" >
-              {/* <Form.Label>Email address</Form.Label> */}
-              <Form.Control id='myInput' type="text" placeholder="Input product's name..." />
+  useEffect(() => {
+    fetch('http://127.0.0.1:8000/categories/', {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(response => response.json())
+      .then((data) => {
+        setCategories(data);
+      })
+      .catch((error) => {
+        console.error('Error fetching categories: ', error);
+      });
 
-            </Form.Group>
-          </Form>
-           
-    
-          <Dropdown>
-            <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
-              Custom toggle
-            </Dropdown.Toggle>
+    getProducts('All'); 
+  }, []);
 
-            <Dropdown.Menu as={CustomMenu}>
-              <Dropdown.Item eventKey="1">Red</Dropdown.Item>
-              <Dropdown.Item eventKey="2">Blue</Dropdown.Item>
-              <Dropdown.Item eventKey="3" active>
-                Orange
-              </Dropdown.Item>
-              <Dropdown.Item eventKey="1">Red-Orange</Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-          <Form.Label>Range</Form.Label>
-          <Form.Range />
-        </div>
-    );
+  const handleCategoryClick = (categoryName) => {
+    setFilterItem(categoryName);
+    getProducts(categoryName);
+  };
+
+  return (
+    <div className='filter-cat-bg'>
+      <Form>
+        <Form.Group className="mb-3">
+          <Form.Control id='myInput' type="text" placeholder="Input product's name..." />
+        </Form.Group>
+      </Form>
+
+      <ListGroup>
+        <ListGroup.Item
+          active={filterItem === 'All'}
+          onClick={() => handleCategoryClick('All')}
+          style={{ cursor: 'pointer' }}
+        >
+          All
+        </ListGroup.Item>
+        {categories.map((category) => (
+          <ListGroup.Item
+            key={category.id}
+            active={filterItem === category.name}
+            onClick={() => handleCategoryClick(category.name)}
+            style={{ cursor: 'pointer' }}
+          >
+            {category.name}
+          </ListGroup.Item>
+        ))}
+      </ListGroup>
+
+      <Form.Label>Range</Form.Label>
+      <Form.Range />
+
+      {/* Для прикладу виведемо продукти */}
+      <div className="products-list">
+        {products.map((product) => (
+          <div key={product.id}>
+            {product.name}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }
+
 export default Filter;

@@ -1,0 +1,110 @@
+.feedback-login-prompt {
+    text-align: center;
+    margin-top: 200px;
+    margin-bottom: 100%;
+
+    padding: 20px;
+}
+
+.feedback-login-prompt h2 {
+    font-size: 24px;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.feedback-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.feedback-form {
+    max-width: 600px;
+    margin: 50px auto;
+    
+    padding: 30px;
+    background: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.feedback-form .form-label {
+    font-weight: bold;
+}
+
+.feedback-form .form-control {
+    margin-bottom: 20px;
+}
+
+.feedback-form button {
+    width: 100%;
+    padding: 10px;
+    font-size: 18px;
+}
+
+.feedback-form {
+    max-width: 600px;
+    margin: 40px auto;
+    margin-top: 200px;
+    padding: 30px;
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  }
+  
+  .feedback-form .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .feedback-form .form-label {
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .feedback-form .form-control {
+    border-radius: 8px;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+  }
+  
+  .feedback-form .form-text {
+    color: #6c757d;
+    font-size: 0.9rem;
+  }
+  
+  .feedback-form textarea.form-control {
+    resize: none;
+  }
+  
+  .feedback-form .phone-input {
+    margin-top: 10px;
+  }
+  
+  
+  .feedback-form button {
+    width: 100%;
+    padding: 12px;
+    font-weight: bold;
+    background-color: #0d6efd;
+    border: none;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .feedback-form button:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+  }
+  
+  .feedback-form button:hover:not(:disabled) {
+    background-color: #0056b3;
+  }
+  
+  /* Mobile responsiveness */
+  @media (max-width: 768px) {
+    .feedback-form {
+      padding: 20px;
+      margin: 20px;
+    }
+  }
+  

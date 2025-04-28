@@ -1,4 +1,4 @@
-.filter-bg {
+.filter-cat-bg {
     background-color: wheat;
     width: 300px;
     max-width: 100%;
@@ -18,9 +18,6 @@
     gap: 16px;
   }
   
-  .category-dropdown {
-    width: 100%;
-  }
   
   .range-container {
     margin-top: 20px;

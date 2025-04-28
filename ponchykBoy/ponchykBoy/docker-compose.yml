@@ -71,6 +71,19 @@ services:
       - redis
       - web
 
+  react:
+    build: ./frontend
+    restart: always
+    ports:
+      - "5173:5173"
+    environment:
+       - CHOKIDAR_USEPOLLING=true
+    volumes:
+      - ./frontend/my-app:/frontend/my-app
+      - /frontend/my-app/node_modules/
+    depends_on:
+      - web
+
   flower:
     build: .
     hostname: flower

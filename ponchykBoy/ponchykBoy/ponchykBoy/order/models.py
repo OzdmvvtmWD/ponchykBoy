@@ -6,6 +6,9 @@ from users.models import CustomUser
 
 class ShopFilial(models.Model):
     adress = models.CharField(max_length=255)
+    lon = models.FloatField(null=True)
+    lat = models.FloatField(null=True)
+
 
 class Order(models.Model):
 
@@ -36,4 +39,4 @@ class OrderItem(models.Model):
 
 
     def get_cost(self):
-        return self.cost * self.number
+        return self.cost 

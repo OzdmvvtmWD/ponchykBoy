@@ -1,0 +1,12 @@
+Subject: Thank You for Your Feedback!
+
+Hello {{ name }} {{ surname }},
+
+We sincerely appreciate you taking the time to share your feedback with us.
+
+Your opinion is very important and helps us to improve our service and products for you and other customers.
+
+Thank you again for your valuable input!
+
+Best regards,  
+Your Company Name

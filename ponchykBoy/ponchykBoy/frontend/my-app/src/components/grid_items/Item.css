@@ -1,6 +1,9 @@
 button {
     background-color: transparent;
 }
+ .card {
+  min-width: 300px;
+ }
   
   .card:hover {
     transform: translateY(-10px);
@@ -9,6 +12,7 @@ button {
  
   .card-body {
     height: 200px;
+    /* min-width: 400px;/ */
     padding: 15px;
     
   }

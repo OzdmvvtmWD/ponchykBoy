@@ -29,10 +29,21 @@ class ProductViewSet(viewsets.ModelViewSet):
         if category_id:
             products = Product.objects.filter(category__id=category_id)
             serializer = ProductSerializer(products, many=True)
+
+            # Manually update the image URLs to be absolute
+            for product in serializer.data:
+                if 'image' in product and product['image']:
+                    product['image'] = request.build_absolute_uri(product['image'])
+
             return Response(serializer.data)
         else:
             return Response({"detail": "Category parameter is required."}, status=status.HTTP_400_BAD_REQUEST)
 
 
 
+class CategoryViewSet(viewsets.ModelViewSet):
+    
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+    permission_classes = [IsAdminUserOrReadOnly]
 

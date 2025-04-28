@@ -38,12 +38,6 @@ class CustomUserManager(BaseUserManager):
         
         if not phone_number:
             raise ValueError("The given phone_number must be set")
-        
-
-        # region = str(phone_number.get('region')).upper()
-        # number = str(phone_number.get('number'))
-
-        # phone_number = phone_validator(region,number)
          
 
         user = self.model(

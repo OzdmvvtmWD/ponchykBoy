@@ -1,33 +1,81 @@
-/* Filter component: Fixed width, doesn't shrink */
+.page-container-grid-re {
+  /* padding-top: 150px;  */
+  padding-left: 20px;
+  padding-right: 20px;
+  /* margin-top: 1100px; */
 
-  
+}
+
+.table-grid-re {
+  padding: 250px;
+  margin-left: 170px;
+  /* margin-top: 1200px; */
+
+  transition: margin-left 0.3s ease;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .filter-bg {
+    width: 250px;
+  }
+
   .table {
-    margin-left: 120px;
-    margin-top: 100px; 
-    left: 100px; 
-    transition: margin-left 0.3s ease; 
-    width: calc(100% - 20px); 
+    margin-left: 0;
+    width: 100%;
   }
-  
-  @media (max-width: 768px) {
-    .filter-bg {
-      width: 250px; 
-    }
-  
-    .table {
-      margin-left: 270px; 
-      width: calc(100% - 270px); 
-    }
+}
+
+@media (max-width: 576px) {
+  .filter-bg {
+    display: none;
   }
-  
-  @media (max-width: 576px) {
-    .filter-bg {
-      display: none; 
-    }
-  
-    .table {
-      margin-left: 0; 
-      width: 100%; 
-    }
+
+  .table {
+    margin-left: 0;
+    width: 100%;
   }
-  
+}
+.filter-cat-bg {
+  background-color: wheat;
+  width: 300px;
+  max-width: 100%;
+  height: auto;
+  max-height: 500px;
+  position: fixed;
+  top: 120px;
+  left: 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.filter-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+
+.range-container {
+  margin-top: 20px;
+}
+
+.form-label {
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+input.form-control {
+  border-radius: 8px;
+}
+
+.input-group-text {
+  background-color: #007bff;
+  color: white;
+  border-radius: 8px;
+}
+
+.input-group-text:hover {
+  background-color: #0056b3;
+}

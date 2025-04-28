@@ -1,0 +1,25 @@
+.profile-container {
+    padding: 20px;
+    max-width: 800px;
+    margin: auto;
+    margin-top: 200px;
+  }
+  
+  .profile-card {
+    margin-bottom: 20px;
+  }
+  
+  .profile-card .card-header {
+    text-align: center;
+  }
+  
+  .list-group-item {
+    margin: 5px 0;
+  }
+  
+  .profile-card .card-body {
+    max-height: 400px;  
+    overflow-y: auto;   
+    padding-right: 15px; 
+  }
+  

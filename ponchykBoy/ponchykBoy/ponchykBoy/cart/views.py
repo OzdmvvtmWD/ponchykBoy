@@ -8,12 +8,12 @@ from .serializer import CartSerializer
 from .cart import Cart
 
 class CartView(APIView):
-
     def get(self, request):
         cart = Cart(request)
         return Response(cart.get_all())
-
+    
     def post(self, request):
+
         serializer = CartSerializer(data = request.data)
 
         if serializer.is_valid():

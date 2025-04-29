@@ -202,7 +202,7 @@ function OrderForm(props) {
             </Form.Select>
 
             <Form.Select required className="mt-2" onChange={(e) => setSelectedHour(Number(e.target.value))}>
-              {[...Array(22 - dateNow.getHours())].map((_, i) => {
+              {[...Array(24 - dateNow.getHours())].map((_, i) => {
                 const hour = i + 1 + dateNow.getHours();
                 return (
                   <option key={hour} value={hour}>

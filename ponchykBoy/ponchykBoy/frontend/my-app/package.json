@@ -19,6 +19,7 @@
     "@vis.gl/react-maplibre": "^8.0.4",
     "axios": "^1.8.4",
     "bootstrap": "^5.3.3",
+    "js-cookie": "^3.0.5",
     "maplibre-gl": "^5.4.0",
     "package": "^1.0.1",
     "rc-slider": "^11.1.8",

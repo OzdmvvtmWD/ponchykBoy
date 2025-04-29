@@ -28,6 +28,7 @@ function GridItems() {
     fetch(url, {
       headers: {
         'Content-Type': 'application/json',
+
       },
     })
       .then(response => response.json())

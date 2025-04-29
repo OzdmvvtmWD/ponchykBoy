@@ -5,6 +5,7 @@ import { Rating } from 'react-simple-star-rating';
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
 import './Feedback.css'
+import Cookies from 'js-cookie';
 
 function Feedback() {
     const navigate = useNavigate();
@@ -27,6 +28,7 @@ function Feedback() {
                         method: 'GET',
                         headers: {
                             'Authorization': `Token ${token_auth}`,
+                            
                         },
                     });
                     if (response.ok) {
@@ -64,6 +66,8 @@ function Feedback() {
         try {
             const headers = {
               'Content-Type': 'application/json',
+            'X-CSRFToken' : Cookies.get('csrftoken')              
+              
             };
         
             if (token) {

@@ -19,3 +19,6 @@ RUN pip install -r /temp/requirements.txt
 RUN adduser --disabled-password ghoul
 
 USER ghoul
+
+# RUN python3 manage.py createsuperuser --username=ghoul_admn --email=ia.02guzbo@gmail.com
+

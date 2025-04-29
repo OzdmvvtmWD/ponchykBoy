@@ -172,22 +172,18 @@ function NavBar({ cartItems, refreshCart }) {
             <Nav.Link href="/home">Home</Nav.Link>
             <Nav.Link href="/">Menu</Nav.Link>
             <Nav.Link href="/feedback">Feedback</Nav.Link>
-            <Nav>
+            <>
             <NavDropdown title={token ? 'Profile' : 'Login'} id="basic-nav-dropdown" className="drop-down-log">
-              {token ? (
-                <>
-                  <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item onClick={removeToken}>Logout</NavDropdown.Item>
-                </>
-              ) : (
-                <>
-                  <NavDropdown.Item href="/login">Login</NavDropdown.Item>
-                  <NavDropdown.Item href="/sign-up">Sign Up</NavDropdown.Item>
-                </>
-              )}
+            {token ? [
+              <NavDropdown.Item key="profile" href="/profile">Profile</NavDropdown.Item>,
+              <NavDropdown.Divider key="divider" />,
+              <NavDropdown.Item key="logout" onClick={removeToken}>Logout</NavDropdown.Item>
+            ] : [
+              <NavDropdown.Item key="login" href="/login">Login</NavDropdown.Item>,
+              <NavDropdown.Item key="signup" href="/sign-up">Sign Up</NavDropdown.Item>
+            ]}
             </NavDropdown>
-            </Nav>
+            </>
           </Nav>
         </Navbar.Collapse>
       </Container>

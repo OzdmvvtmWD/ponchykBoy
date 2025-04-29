@@ -12,8 +12,8 @@ function ProfilePage() {
   const [feedbacks, setFeedbacks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [selectedOrder, setSelectedOrder] = useState(null);  // State to track selected order
-  const [selectedFeedback, setSelectedFeedback] = useState(null); // State to track selected feedback
+  const [selectedOrder, setSelectedOrder] = useState(null);  
+  const [selectedFeedback, setSelectedFeedback] = useState(null); 
 
   useEffect(() => {
     if (!token) {
@@ -84,8 +84,7 @@ function ProfilePage() {
           <Card.Body>
             <h3>Welcome, {userData.username}</h3>
             <p>Email: {userData.email}</p>
-            <p>First Name: {userData.first_name}</p>
-            <p>Last Name: {userData.last_name}</p>
+            
           </Card.Body>
         </Card>
       )}
@@ -99,11 +98,21 @@ function ProfilePage() {
                 <ListGroup.Item key={order.id} onClick={() => handleOrderClick(order)}>
                   <strong>Order #{order.id}</strong> - Date: {order.order_date} - Status: {order.is_paid ? 'Paid' : 'Not Paid'}
                   <Collapse in={order.id === selectedOrder}>
-                    <div>
-                      <p>Order Details:</p>
-                      <pre>{JSON.stringify(order, null, 2)}</pre> 
-                    </div>
-                  </Collapse>
+                  <div>
+                    <p><strong>Order Date:</strong> {order.created}</p>
+                    <p><strong>Status:</strong> {order.is_paid ? 'Paid' : 'Not Paid'}</p>
+                    <p><strong>Email:</strong> {order.email}</p>
+                    <p><strong>Phone:</strong> {order.phone_number}</p>
+                    <p><strong>Items:</strong> </p>
+                     <ul>
+                      {order.items && order.items.map((item) => (
+                        <li key={item.id}>
+                          {item.product_name} | {item.number} — ${item.cost}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                                </Collapse>
                 </ListGroup.Item>
               ))}
             </ListGroup>
@@ -122,10 +131,13 @@ function ProfilePage() {
                 <ListGroup.Item key={feedback.id} onClick={() => handleFeedbackClick(feedback)}>
                   {feedback.description} - Rating: {feedback.rating}
                   <Collapse in={feedback.id === selectedFeedback}>
-                    <div>
-                      <p>Feedback Details:</p>
-                      <pre>{JSON.stringify(feedback, null, 2)}</pre> 
-                    </div>
+                  <ListGroup>
+                    <p><strong>ID:</strong> {feedback.id}</p>
+                    <p><strong>Description:</strong> {feedback.description}</p>
+                    <p><strong>Rating:</strong> {feedback.rating}</p>
+                    <p><strong>Created at:</strong> {feedback.created}</p>
+                    <p><strong>Order ID:</strong> #{feedback.order}</p>
+                  </ListGroup>
                   </Collapse>
                 </ListGroup.Item>
               ))}

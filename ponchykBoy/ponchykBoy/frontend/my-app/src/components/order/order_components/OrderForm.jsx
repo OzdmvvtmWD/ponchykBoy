@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import ModalShopInfo from './ModalShopInfo';
 import { PhoneInput } from 'react-international-phone';
 import 'react-international-phone/style.css';
+import Cookies from 'js-cookie';
 
 function OrderForm(props) {
 
@@ -61,6 +62,7 @@ function OrderForm(props) {
     setShow(false);
   };
   const [userId, setUserId] = useState(null);
+  console.log(Cookies.get('csrftoken'))
 
   useEffect(() => {
     if (token) {
@@ -100,6 +102,8 @@ function OrderForm(props) {
     try {
       const headers = {
         'Content-Type': 'application/json',
+        'X-CSRFToken' : Cookies.get('csrftoken')              
+
       };
   
       if (token) {

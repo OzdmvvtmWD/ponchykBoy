@@ -1,14 +1,22 @@
 import time 
 from rest_framework import serializers
 from .models import Order,OrderItem,ShopFilial
+# from app.serializer import ProductSerializer
+
+class OrderItemSerializer(serializers.ModelSerializer):
+    product_name = serializers.CharField(source='product.name')
+    class Meta:
+        model = OrderItem
+        fields = ['id', 'order','product','product_name', 'cost', 'number']
 
 class OrderSerializer(serializers.ModelSerializer):
 
     # user = serializers.HiddenField(default=None)
-    
+    items = OrderItemSerializer(many=True)
+
     class Meta:
         model = Order
-        fields = ['shop','email','phone_number','name','surname','order_date','is_paid','user']
+        fields = ['id','shop','email','phone_number','name','surname','order_date','is_paid','user','items']
 
 class ShopAdressSerializer(serializers.ModelSerializer):
     class Meta:

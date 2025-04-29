@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import { useOutletContext } from 'react-router-dom';
 import ModalDetailInfo from './ModalDetailInfo';
 import './Item.css';
+import Cookies from 'js-cookie';
 
 function Item({ item }) {
   const [show, setShow] = useState(false);
@@ -21,6 +22,8 @@ function Item({ item }) {
         credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
+          'X-CSRFToken' : Cookies.get('csrftoken')
+
         },
         body: JSON.stringify({ 
           product_id: item.id,   
@@ -40,6 +43,7 @@ function Item({ item }) {
       console.error('Error adding item to cart:', error);
     }
   };
+  console.log(Cookies.get('csrftoken'))
 
 
   return (

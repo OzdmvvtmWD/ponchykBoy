@@ -34,8 +34,6 @@ class OrderViewSet(viewsets.ModelViewSet):
         if request.user.is_authenticated:
             order_serializer.initial_data['user'] = request.user.id
 
-
-            
         if order_serializer.is_valid(raise_exception=True):
             order = order_serializer.save()
 

@@ -1,7 +1,5 @@
-import time 
 from rest_framework import serializers
 from .models import Order,OrderItem,ShopFilial
-# from app.serializer import ProductSerializer
 
 class OrderItemSerializer(serializers.ModelSerializer):
     product_name = serializers.CharField(source='product.name')
@@ -11,8 +9,7 @@ class OrderItemSerializer(serializers.ModelSerializer):
 
 class OrderSerializer(serializers.ModelSerializer):
 
-    # user = serializers.HiddenField(default=None)
-    items = OrderItemSerializer(many=True)
+    items = OrderItemSerializer(many=True, required=False)
 
     class Meta:
         model = Order

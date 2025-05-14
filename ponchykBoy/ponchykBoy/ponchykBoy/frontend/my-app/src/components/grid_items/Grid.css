@@ -1,0 +1,115 @@
+/* Layout Container */
+.page-container-grid-re {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  padding: 24px;
+  margin-top: 120px;
+}
+
+/* Sidebar Filter Container */
+.filter-cat-bg {
+  flex: 1;
+  min-width: 250px;
+  max-width: 300px;
+  background-color: #f8e7c5; /* Softer wheat tone */
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  height: fit-content;
+  transition: box-shadow 0.3s ease;
+}
+
+/* Table/Content Area */
+.table-grid-re {
+  flex: 3;
+  min-width: 300px;
+}
+
+/* Search Input */
+#myInput {
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  width: 100%;
+  transition: border-color 0.3s ease;
+}
+
+#myInput:focus {
+  border-color: #999;
+  outline: none;
+}
+
+/* Price Range Inputs */
+.price-range {
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+}
+
+.price-range input {
+  width: 70px;
+  padding: 6px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+/* RC Slider */
+.rc-slider {
+  margin-top: 20px;
+}
+
+/* Filter Section - Tags / Categories */
+.form-type-section {
+  margin-top: 20px;
+}
+
+/* Scrollable Filter Section (used for tags/categories) */
+.scrollable-filter-section {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  max-height: 400px;
+  overflow-y: auto;
+  margin-bottom: 20px;
+  transition: box-shadow 0.3s ease;
+}
+
+.scrollable-filter-section:hover {
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+}
+
+/* Custom Scrollbar Styling */
+.scrollable-filter-section::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scrollable-filter-section::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 8px;
+}
+
+.scrollable-filter-section::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 8px;
+}
+
+.scrollable-filter-section::-webkit-scrollbar-thumb:hover {
+  background: #999;
+}
+
+/* Responsive Layout */
+@media (max-width: 768px) {
+  .page-container-grid-re {
+    flex-direction: column;
+  }
+
+  .filter-cat-bg,
+  .table-grid-re {
+    width: 100%;
+  }
+}

@@ -18,7 +18,7 @@ from cart.cart import Cart
 
 class OrderViewSet(viewsets.ModelViewSet):
 
-    permission_classes = [IsOwnerOrReadOnly,IsAuthenticated]
+    permission_classes = [IsOwnerOrReadOnly]
 
     queryset = Order.objects.all()
     serializer_class = OrderSerializer

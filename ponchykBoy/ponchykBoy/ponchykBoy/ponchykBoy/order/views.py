@@ -1,27 +1,29 @@
-from django.forms import ValidationError
-from django.shortcuts import render
-from rest_framework.permissions import IsAuthenticated
-# from rest_framework.permissions import BasePermission,SAFE_METHODS
 from rest_framework import viewsets,status
-from django.utils.decorators import method_decorator
-from django.views.decorators.cache import cache_page
-from django.views.decorators.vary import vary_on_cookie, vary_on_headers
 from rest_framework.response import Response
 from .models import OrderItem,Order,ShopFilial
 from .serializer import OrderSerializer,ShopAdressSerializer
-from .permission import IsOwnerOrReadOnly
+from .permission import IsOwnerOrCreateOnly
 from .celery_tasks import order_created
 from cart.cart import Cart
+from rest_framework.decorators import action
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 
 
 
 class OrderViewSet(viewsets.ModelViewSet):
 
-    permission_classes = [IsOwnerOrReadOnly]
+    permission_classes = [IsOwnerOrCreateOnly]
 
-    queryset = Order.objects.all()
+    # queryset = Order.objects.all()
     serializer_class = OrderSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        if user.is_authenticated:
+            return Order.objects.filter(user=user)
+        return Order.objects.none()
+     
 
     def create(self, request, *args, **kwargs):
         cart = Cart(request)
@@ -54,7 +56,7 @@ class OrderViewSet(viewsets.ModelViewSet):
 
 class ShopAdressViewSet(viewsets.ModelViewSet):
 
-    permission_classes = [IsOwnerOrReadOnly]
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
     queryset = ShopFilial.objects.all()
     serializer_class = ShopAdressSerializer

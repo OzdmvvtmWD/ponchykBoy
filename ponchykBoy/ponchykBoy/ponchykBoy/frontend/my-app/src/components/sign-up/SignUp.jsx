@@ -43,7 +43,7 @@ export default function Signup() {
 
       const data = await response.json();
       if (response.ok) {
-        navigate('/')
+        navigate('/wait');
       } else {
         console.error(data);
         alert('Error: ' + JSON.stringify(data));

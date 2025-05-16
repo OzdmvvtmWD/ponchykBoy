@@ -109,12 +109,12 @@ const Login = ({ setToken }) => {
             marginBottom: '10px',
             color: '#555',
           }}>
-            <div>
+            {/* <div>
               <input type="checkbox" /> Remember Me
-            </div>
-            <a href="#" onClick={(e) => e.preventDefault()} style={{ textDecoration: 'none', color: '#007bff' }}>
+            </div> */}
+            {/* <a href="#" onClick={(e) => e.preventDefault()} style={{ textDecoration: 'none', color: '#007bff' }}>
               Forgot Password?
-            </a>
+            </a> */}
           </div>
 
           <Footer>

@@ -7,6 +7,12 @@ Order Number: {{ order_number }}
 Order Date: {{ order_date }}
 Total Amount: ${{ total_amount }}
 
+Your Order is:
+{% for item in order_items %}
+{{ item.product.name }}-  (x{{ item.number }}) – ${{ item.cost }}
+{% endfor %}
+
+
 Your order is now being processed, and you will receive another email once it has been shipped.
 
 If you have any questions or need assistance, feel free to contact us at support@example.com.

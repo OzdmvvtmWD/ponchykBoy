@@ -15,3 +15,4 @@ class ActivateUser(UserViewSet):
         super().activation(request, *args, **kwargs)
         frontend_url = f"http://127.0.0.1:5173/activation-success/{uid}/{token}"
         return redirect(frontend_url)
+  

@@ -108,7 +108,7 @@ function Feedback() {
                     <Button variant="primary" onClick={() => navigate('/login')}>
                         Login
                     </Button>
-                    <Button variant="secondary" onClick={() => navigate('/signup')}>
+                    <Button variant="secondary" onClick={() => navigate('/sign-up')}>
                         Sign Up
                     </Button>
                 </div>

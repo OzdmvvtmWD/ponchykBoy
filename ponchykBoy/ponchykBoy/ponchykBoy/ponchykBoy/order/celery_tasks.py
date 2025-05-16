@@ -2,13 +2,16 @@ from django.core import mail
 from django.template.loader import render_to_string
 
 from celery import shared_task
-from .models import Order
+from .models import Order, OrderItem
 
 
 @shared_task(bind=True)
 def order_created(self, order_id):
     try:
         order = Order.objects.get(id=order_id)
+        items = OrderItem.objects.filter(order = order)
+
+        print(items)
 
         text_content = render_to_string(
             "email/text_email.txt",
@@ -16,6 +19,7 @@ def order_created(self, order_id):
                 "customer_name" : order.name + " " + order.surname,
                 "order_number" : order.pk,
                 "order_date" : order.created,
+                "order_items" : items,
                 "total_amount": order.get_total_cost()
             },
       

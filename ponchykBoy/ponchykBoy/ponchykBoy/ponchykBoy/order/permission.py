@@ -1,19 +1,25 @@
-from rest_framework.permissions import BasePermission,SAFE_METHODS
+from rest_framework.permissions import BasePermission, SAFE_METHODS
 
-# class IsAdminOrReadOnly(BasePermission):
-   
+class IsOwner(BasePermission):
+  
 
-#     def has_permission(self, request, view):
-#         return bool(
-#             request.method in SAFE_METHODS or
-#             request.user and request.user.is_staff
-#         )
+    def has_permission(self, request, view):
+        return bool(
+            request.user and request.user.is_authenticated and request.user.is_active
+        )
 
-class IsOwnerOrReadOnly(BasePermission):
-   
     def has_object_permission(self, request, view, obj):
-       
-        if request.method in SAFE_METHODS:
-            return True
+        return obj.user == request.user
 
-        return obj.owner == request.user
+
+class IsOwnerOrCreateOnly(BasePermission):
+  
+
+    def has_permission(self, request, view):
+        if request.method == 'POST':
+            return True
+        return request.user and request.user.is_authenticated
+
+    def has_object_permission(self, request, view, obj):
+        # Перевірка чи користувач — власник об'єкта
+        return obj.user == request.user

@@ -20,7 +20,7 @@ function GridItems() {
   const [tags, setTags] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
-  const [onlyAvailable, setOnlyAvailable] = useState(false);
+  const [onlyAvailable, setOnlyAvailable] = useState(true);
 
   const getProducts = (category) => {
     let url = 'http://127.0.0.1:8000/product/';
@@ -84,6 +84,11 @@ function GridItems() {
     fetchTags();
   }, []);
 
+  useEffect(() => {
+    filterProducts(products, searchQuery, priceRange, selectedTags);
+
+  });
+
   const handleCategoryClick = (category) => {
     setSelectedCategoryId(category.id);
 
@@ -140,7 +145,7 @@ function GridItems() {
   const filtered = allProducts.filter(product => {
     const inPrice = product.cost >= priceRange[0] && product.cost <= priceRange[1];
     const nameMatch = product.name.toLowerCase().includes(query.toLowerCase());
-    const isAvailable = !onlyAvailable || product.available;
+    const isAvailable = onlyAvailable || product.available;
 
     const matchesTag =
       tagFilter.length === 0 ||

@@ -23,11 +23,11 @@ class Product(models.Model):
     image = models.ImageField(blank= True,upload_to=upload_to)
     cost = models.DecimalField(max_digits=10, decimal_places=2)
 
-    units = models.IntegerField()
-    calories = models.IntegerField(default=0)
+    # units = models.IntegerField()
+    # calories = models.IntegerField(default=0)
     description = models.TextField(blank=True)
-    numbers_of_product = models.PositiveIntegerField()
-    numbers_of_product_reservate = models.PositiveIntegerField(default=0)
+    # numbers_of_product = models.PositiveIntegerField()
+    # numbers_of_product_reservate = models.PositiveIntegerField(default=0)
 
     available = models.BooleanField(default=True)
 

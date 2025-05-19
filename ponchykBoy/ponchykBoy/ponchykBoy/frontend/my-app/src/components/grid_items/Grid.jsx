@@ -20,6 +20,7 @@ function GridItems() {
   const [tags, setTags] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
+  const [onlyAvailable, setOnlyAvailable] = useState(false);
 
   const getProducts = (category) => {
     let url = 'http://127.0.0.1:8000/product/';
@@ -139,12 +140,13 @@ function GridItems() {
   const filtered = allProducts.filter(product => {
     const inPrice = product.cost >= priceRange[0] && product.cost <= priceRange[1];
     const nameMatch = product.name.toLowerCase().includes(query.toLowerCase());
+    const isAvailable = !onlyAvailable || product.available;
 
     const matchesTag =
       tagFilter.length === 0 ||
       (product.tags && product.tags.some(tag => tagFilter.includes(tag.id)));
 
-    return inPrice && nameMatch && matchesTag;
+    return inPrice && nameMatch && matchesTag && isAvailable;
   });
 
   setFilteredProducts(filtered);
@@ -214,6 +216,15 @@ function GridItems() {
         )}
 
         <hr />
+        <Form.Check
+          type="checkbox"
+          label="Only show available"
+          checked={onlyAvailable}
+          onChange={(e) => {
+            setOnlyAvailable(e.target.checked);
+            filterProducts(products, searchQuery, priceRange, selectedTags, e.target.checked);
+          }}
+        />
 
         <Slider
           range

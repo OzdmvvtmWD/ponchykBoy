@@ -121,7 +121,7 @@ function OrderForm(props) {
           name: name,
           surname: surname,
           order_date: getOrderDate(),
-          is_paid: false,
+          // order_status: false,
           user: userId,
           // items: [{}]
         }),

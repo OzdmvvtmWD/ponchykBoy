@@ -1,7 +1,7 @@
 from rest_framework import viewsets,status
 from rest_framework.response import Response
-from .models import OrderItem,Order,ShopFilial
-from .serializer import OrderSerializer,ShopAdressSerializer
+from .models import OrderItem,Order,ShopFilial,Status
+from .serializer import OrderSerializer,ShopAdressSerializer,StatusSerializer
 from .permission import IsOwnerOrCreateOnly
 from .celery_tasks import order_created
 from cart.cart import Cart
@@ -61,4 +61,11 @@ class ShopAdressViewSet(viewsets.ModelViewSet):
     queryset = ShopFilial.objects.all()
     serializer_class = ShopAdressSerializer
 
+
+class StatusViewSet(viewsets.ModelViewSet):
+
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+    queryset = Status.objects.all()
+    serializer_class = StatusSerializer
     

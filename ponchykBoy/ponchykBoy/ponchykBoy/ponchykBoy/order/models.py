@@ -9,6 +9,15 @@ class ShopFilial(models.Model):
     lon = models.FloatField(null=True)
     lat = models.FloatField(null=True)
 
+    def __str__(self):
+        return self.adress
+
+
+class Status(models.Model):
+    name = models.CharField(max_length=255)
+    
+    def __str__(self):
+        return self.name
 
 class Order(models.Model):
 
@@ -24,7 +33,8 @@ class Order(models.Model):
 
     order_date = models.DateTimeField()
 
-    is_paid = models.BooleanField(default=False)
+    # is_paid = models.BooleanField(default=False)
+    order_status = models.ForeignKey('Status',on_delete=models.PROTECT, null=True,related_name='status')
 
     user = models.ForeignKey(CustomUser,related_name='orders',on_delete=models.PROTECT,null=True)
 
